@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import requests
 import json
+import random
 
 
 
@@ -14,14 +15,16 @@ headers = {
         'cache-control': "no-cache"
 }
 
-response = requests.get('https://openlibrary.org/subjects/love.json?limit=50').json()
+response = requests.get('https://openlibrary.org/subjects/love.json?limit=500').json()
 
 
 works_diccionary=response['works']
 
+#random.shuffle(works_diccionary)
 
 #print (response.text)
-for x in range(0,50):
+for i in range(0,10):
+	x= random.randrange(499)
 	print (works_diccionary[x]['title'])
 
 
