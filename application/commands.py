@@ -32,27 +32,35 @@ def search_author(message):
             if i % 2 == 0:
                 click_kb.row(*list_titles)
                 list_titles = []
-            bot.send_message(message.chat.id, "<b>Aquí se muestran todos los titulos de " + object_search + "...</b>", parse_mode="HTML", reply_markup=click_kb, disable_web_page_preview=True)
+        bot.send_message(message.chat.id, "<b>Aquí se muestran todos los titulos de " + object_search.encode('utf-8') + "...</b>", reply_markup=click_kb, disable_web_page_preview=True)
     else:
 
         bot.send_message(message.chat.id, 'Por favor, escribe /search_author "autor"', parse_mode="HTML")
-"""
+
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
     if call.data.startswith("parent_"):
         #mandar categorias hijos
-        response = requests.get("https://openlibrary.org"+, allow_redirects = True)
-        list_message = call.data.split("parent_")
-        author = list_message[1]
-        soup = BeautifulSoup(response.content)
-        category = soup.find("h2", text=name_category)
-        parent_div = category.parent()[1]
-        subcategories = parent_div.findAll("a", {"class":"nav_a"})
-        click_kb = InlineKeyboardMarkup()
-        for subcategory in subcategories:
-            name_subcategory = subcategory.get_text()
-            click_button = InlineKeyboardButton(name_subcategory, callback_data='subcategory_' + name_subcategory)
-            click_kb.row(click_button)
+
+
+
+        for doc in docsDictionary:
+            key = doc['key']
+            response = requests.get("http://openlibrary.org/" + key, allow_redirects = True)
+            list_message = call.data.split("parent_")
+            name_category = list_message[1]
+
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text = "Haz click en lo que desees", reply_markup=click_kb)
         #import ipdb; ipdb.set_trace()
-    """
+"""
+    else:
+        response = requests.get("https://www.amazon.es/gp/site-directory?ref=nav_shopall_btn", allow_redirects = True)
+        list_message = call.data.split("subcategory_")
+        name_category = list_message[1]
+        soup = BeautifulSoup(response.content)
+        subcategory = soup.find("a", text=name_category)
+        href = subcategory['href']
+        response = requests.get("https://amazon.es" + href)
+        soup = BeautifulSoup(response.content)
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text = 'https://www.amazon.es' + href, parse_mode="HTML")
+        """
