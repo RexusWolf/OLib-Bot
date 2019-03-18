@@ -18,5 +18,7 @@ for doc in docs_dic:
         author = "".join(doc['author_name'])
         author = re.sub(r"(?<=\w)([A-Z])", r" | \1", author)
         print (doc['title'] + " - " + author )
+        print ('URL: https://openlibrary.org'+doc['key'])
+        print('\n')
     else:
         print (doc['title'] + " - " + "Unknown Author")
