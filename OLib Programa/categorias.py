@@ -25,7 +25,7 @@ works_diccionary=response['works']
 #print (response.text)
 for i in range(0,10):
 	x= random.randrange(499)
-	print (works_diccionary[x]['title'])
+	print ("Titulo:" + works_diccionary[x]['title'] + "        Autor:" + works_diccionary[x]['authors'][0]['name'])
 
 
 
