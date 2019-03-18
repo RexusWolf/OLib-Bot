@@ -33,9 +33,7 @@ for i in range(0,10):
 	if 'authors' in works_diccionary[x]:
 		print ("Titulo:" + works_diccionary[x]['title'] )
 		print ("Autor:" + works_diccionary[x]['authors'][0]['name']+'\n')
-		
+
 	else:
 		print ("Titulo:" + works_diccionary[x]['title'] + "        Autor: Desconocido")
 		print ("Autor: Desconocido"+'\n')
-		
-
