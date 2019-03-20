@@ -8,8 +8,8 @@ import random
 
 lista_cat = ["love","science","art","biographies","fantasy","romance","religion","recipes", "mystery","music", "medicine","history", "chilcren","sci-fi"]
 
-
-subject= "sci-fi" #selecionar por menus la que sea
+print('Dime la categoría')
+subject= raw_input() #selecionar por menus la que sea
 url = "https://openlibrary.org/subjects/"+subject+".json?limit=50"
 response = requests.get(url).json()
 
